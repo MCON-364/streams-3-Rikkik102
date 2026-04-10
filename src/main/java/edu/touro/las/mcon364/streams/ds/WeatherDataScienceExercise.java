@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class WeatherDataScienceExercise {
 
-    record WeatherRecord(
+    public record WeatherRecord(
             String stationId,
             String city,
             String date,
@@ -98,7 +98,7 @@ public class WeatherDataScienceExercise {
                 .collect(Collectors.averagingDouble(WeatherRecord::temperatureC));
     }
 
-    static Optional<String> highestAveTemp(List<WeatherRecord> records) {
+    public static Optional<String> highestAveTemp(List<WeatherRecord> records) {
         return records.stream()
                 .collect(Collectors.groupingBy(WeatherRecord::city,
                         Collectors.averagingDouble(WeatherRecord::temperatureC)))
@@ -118,12 +118,12 @@ public class WeatherDataScienceExercise {
                         Collectors.averagingDouble(WeatherRecord::precipitationMm)));
     }
 
-    static Optional<WeatherRecord> wettestDay(List<WeatherRecord> records) {
+    public static Optional<WeatherRecord> wettestDay(List<WeatherRecord> records) {
         return records.stream()
                 .max(Comparator.comparingDouble(WeatherRecord::precipitationMm));
     }
 
-    static Optional<WeatherRecord> parseRow(String row) {
+    public static Optional<WeatherRecord> parseRow(String row) {
         // TODO:
         // 1. Split the row by commas
         // 2. Reject malformed rows
@@ -152,7 +152,7 @@ public class WeatherDataScienceExercise {
 
     }
 
-    static boolean isValid(WeatherRecord r) {
+    public static boolean isValid(WeatherRecord r) {
         // TODO:
         // Keep only rows where:
         // - temperature is between -60 and 60
@@ -180,7 +180,7 @@ public class WeatherDataScienceExercise {
             double maxTemp
     ) {}
 
-    private static List<String> readCsvRows(String fileName) throws IOException {
+    public static List<String> readCsvRows(String fileName) throws IOException {
         InputStream in = WeatherDataScienceExercise.class.getResourceAsStream(fileName);
         if (in == null) {
             throw new NoSuchFileException("Classpath resource not found: " + fileName);
